@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oria — Connexion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --violet:#6C5CE7;
+    --violet-deep:#5642E0;
+    --violet-light:#EFECFF;
+    --mint:#00D9A3;
+    --red:#E75C5C;
+    --ink:#161623;
+    --gray:#6B6B7B;
+    --gray-light:#F4F4F9;
+    --white:#FFFFFF;
+    --border:#EAEAF3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--gray-light); color:var(--ink);
+    font-family:'Inter', sans-serif; -webkit-font-smoothing:antialiased;
+    line-height:1.5; min-height:100vh;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  h1,h2,h3{font-family:'Poppins', sans-serif; margin:0;}
+
+  .logo{
+    font-family:'Poppins', sans-serif; font-weight:700; font-size:1.4rem; color:var(--ink);
+    text-decoration:none; display:flex; align-items:center; gap:8px; justify-content:center; margin-bottom:28px;
+  }
+  .logo .dot{width:10px; height:10px; border-radius:50%; background:var(--violet); display:inline-block;}
+
+  .card{
+    background:#fff; border-radius:24px; padding:36px 30px; max-width:400px; width:100%;
+    box-shadow:0 20px 50px -20px rgba(20,20,40,0.15);
+  }
+  .tabs{display:flex; gap:4px; background:var(--gray-light); border-radius:100px; padding:4px; margin-bottom:28px;}
+  .tab{
+    flex:1; text-align:center; padding:10px 0; border-radius:100px; font-weight:600; font-size:0.9rem;
+    color:var(--gray); cursor:pointer; transition:background 0.2s, color 0.2s; user-select:none;
+  }
+  .tab.active{background:var(--violet); color:#fff;}
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel h2{font-size:1.3rem; margin-bottom:6px;}
+  .panel .sub{color:var(--gray); font-size:0.88rem; margin-bottom:22px;}
+
+  label{display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; margin-top:16px;}
+  input{
+    width:100%; padding:13px 14px; border-radius:12px; border:1.5px solid var(--border);
+    font-size:0.95rem; font-family:'Inter',sans-serif; outline:none; transition:border 0.2s;
+  }
+  input:focus{border-color:var(--violet);}
+
+  .btn{
+    width:100%; margin-top:22px; background:var(--violet); color:#fff; border:none; padding:14px;
+    border-radius:100px; font-weight:600; font-size:0.98rem; cursor:pointer; transition:background 0.2s;
+    font-family:'Inter',sans-serif;
+  }
+  .btn:hover{background:var(--violet-deep);}
+  .btn:disabled{opacity:0.6; cursor:not-allowed;}
+
+  .link-btn{
+    background:none; border:none; color:var(--violet); font-weight:600; font-size:0.85rem;
+    cursor:pointer; text-decoration:underline; padding:0; margin-top:14px; display:block; text-align:center; width:100%;
+  }
+
+  .msg{
+    margin-top:16px; padding:12px 14px; border-radius:12px; font-size:0.87rem; display:none;
+  }
+  .msg.error{background:#FDEAEA; color:var(--red); display:block;}
+  .msg.success{background:#E6FBF4; color:#0A9E76; display:block;}
+</style>
+</head>
+<body>
+
+<div style="width:100%; max-width:400px;">
+  <a class="logo" href="index.html"><span class="dot"></span>Oria</a>
+
+  <div class="card">
+    <div class="tabs">
+      <div class="tab active" data-tab="login">Connexion</div>
+      <div class="tab" data-tab="signup">Inscription</div>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="panel active" id="panel-login">
+      <h2>Content de vous revoir</h2>
+      <p class="sub">Connectez-vous à votre espace Oria.</p>
+      <form id="form-login">
+        <label>E-mail</label>
+        <input type="email" id="login-email" required autocomplete="email">
+        <label>Mot de passe</label>
+        <input type="password" id="login-password" required autocomplete="current-password">
+        <button type="submit" class="btn" id="login-btn">Se connecter</button>
+        <button type="button" class="link-btn" data-tab-link="forgot">Mot de passe oublié ?</button>
+      </form>
+      <div class="msg" id="login-msg"></div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div class="panel" id="panel-signup">
+      <h2>Créer votre compte</h2>
+      <p class="sub">Quelques secondes, aucune carte requise.</p>
+      <form id="form-signup">
+        <label>E-mail</label>
+        <input type="email" id="signup-email" required autocomplete="email">
+        <label>Mot de passe</label>
+        <input type="password" id="signup-password" required minlength="6" autocomplete="new-password">
+        <button type="submit" class="btn" id="signup-btn">Créer mon compte</button>
+      </form>
+      <div class="msg" id="signup-msg"></div>
+    </div>
+
+    <!-- FORGOT PASSWORD -->
+    <div class="panel" id="panel-forgot">
+      <h2>Mot de passe oublié</h2>
+      <p class="sub">On vous envoie un lien de réinitialisation par e-mail.</p>
+      <form id="form-forgot">
+        <label>E-mail</label>
+        <input type="email" id="forgot-email" required autocomplete="email">
+        <button type="submit" class="btn" id="forgot-btn">Envoyer le lien</button>
+        <button type="button" class="link-btn" data-tab-link="login">Retour à la connexion</button>
+      </form>
+      <div class="msg" id="forgot-msg"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = "https://plfydshfonnvntdvjikr.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_BUo7t_ZKSeGERdhvBX8yZw_90TOb_VP";
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Tab switching
+  const tabs = document.querySelectorAll(".tab");
+  const panels = document.querySelectorAll(".panel");
+
+  function showPanel(name){
+    panels.forEach(p => p.classList.remove("active"));
+    tabs.forEach(t => t.classList.remove("active"));
+    document.getElementById("panel-" + name).classList.add("active");
+    const matchingTab = document.querySelector(`.tab[data-tab="${name}"]`);
+    if(matchingTab) matchingTab.classList.add("active");
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => showPanel(tab.dataset.tab));
+  });
+  document.querySelectorAll("[data-tab-link]").forEach(btn => {
+    btn.addEventListener("click", () => showPanel(btn.dataset.tabLink));
+  });
+
+  function showMsg(el, text, type){
+    el.textContent = text;
+    el.className = "msg " + type;
+  }
+
+  // LOGIN
+  document.getElementById("form-login").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("login-btn");
+    const msg = document.getElementById("login-msg");
+    btn.disabled = true; btn.textContent = "Connexion...";
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    btn.disabled = false; btn.textContent = "Se connecter";
+    if(error){
+      showMsg(msg, "Identifiants incorrects. Vérifiez votre e-mail et mot de passe.", "error");
+    } else {
+      showMsg(msg, "Connexion réussie ! Redirection...", "success");
+      setTimeout(() => { window.location.href = "oria-chat.html"; }, 1000);
+    }
+  });
+
+  // SIGNUP
+  document.getElementById("form-signup").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("signup-btn");
+    const msg = document.getElementById("signup-msg");
+    btn.disabled = true; btn.textContent = "Création...";
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+
+    const { data, error } = await supabaseClient.auth.signUp({ email, password });
+
+    btn.disabled = false; btn.textContent = "Créer mon compte";
+    if(error){
+      showMsg(msg, error.message.includes("already") ? "Un compte existe déjà avec cet e-mail." : "Erreur : " + error.message, "error");
+    } else {
+      showMsg(msg, "Compte créé ! Vérifiez votre e-mail pour confirmer votre inscription.", "success");
+    }
+  });
+
+  // FORGOT PASSWORD
+  document.getElementById("form-forgot").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById("forgot-btn");
+    const msg = document.getElementById("forgot-msg");
+    btn.disabled = true; btn.textContent = "Envoi...";
+    const email = document.getElementById("forgot-email").value;
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + "/reset-password.html"
+    });
+
+    btn.disabled = false; btn.textContent = "Envoyer le lien";
+    if(error){
+      showMsg(msg, "Erreur : " + error.message, "error");
+    } else {
+      showMsg(msg, "Lien envoyé ! Vérifiez votre boîte mail.", "success");
+    }
+  });
+</script>
+
+</body>
+</html>
