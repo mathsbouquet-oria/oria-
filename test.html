@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="debug-banner" style="background:#111;color:#0F0;font-family:monospace;padding:10px;">DEBUG...</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.getElementById('debug-banner').textContent += '\n✓ Avant createClient';
+try {
+  const supabase = window.supabase.createClient("https://plfydshfonnvntdvjikr.supabase.co", "sb_publishable_BUo7t_ZKSeGERdhvBX8yZw_90TOb_VP");
+  document.getElementById('debug-banner').textContent += '\n✓ createClient réussi';
+  supabase.auth.getSession().then(function(result){
+    document.getElementById('debug-banner').textContent += '\n✓ getSession réussi';
+  }).catch(function(err){
+    document.getElementById('debug-banner').textContent += '\n❌ getSession erreur: ' + err.message;
+  });
+} catch(err) {
+  document.getElementById('debug-banner').textContent += '\n❌ createClient erreur: ' + err.message;
+}
+</script>
+</body>
+</html>
