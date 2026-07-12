@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Oria — Tableau de bord</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" onerror="document.getElementById('debug-banner').textContent += '\n❌ ÉCHEC chargement CDN Supabase — problème réseau, réessayez'; document.body.insertAdjacentHTML('beforeend', '<div style=\'position:fixed;bottom:20px;left:20px;right:20px;background:#5B4FE5;color:white;padding:16px;border-radius:10px;text-align:center;z-index:9999;\'>Erreur de chargement — <a href=\'javascript:location.reload()\' style=\'color:white;text-decoration:underline;\'>Réessayer</a></div>');"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" onerror="document.body.insertAdjacentHTML('beforeend', '<div style=\'position:fixed;bottom:20px;left:20px;right:20px;background:#5B4FE5;color:white;padding:16px;border-radius:10px;text-align:center;z-index:9999;font-family:-apple-system,sans-serif;\'>Connexion instable, le chargement a échoué — <a href=\'javascript:location.reload()\' style=\'color:white;text-decoration:underline;\'>Réessayer</a></div>');"></script>
 <style>
   :root{
     --bg:#F5F4FA;
@@ -120,16 +120,9 @@
     .chat-messages, .content{ padding:20px; }
     .msg{ max-width:85%; }
   }
-  #debug-banner{
-    position:fixed; top:0; left:0; right:0; z-index:9999;
-    background:#111; color:#0F0; font-family:monospace; font-size:11px;
-    padding:6px 10px; max-height:120px; overflow-y:auto; white-space:pre-wrap;
-  }
 </style>
 </head>
 <body>
-
-<div id="debug-banner">DEBUG v4 — init...</div>
 
 <div class="app">
 
@@ -226,38 +219,22 @@
 </div>
 
 <script>
-document.getElementById('debug-banner').textContent += '\n✓ Script 1 OK';
-window.onerror = function(msg, src, line, col){
-  document.getElementById('debug-banner').textContent += '\n❌ ERREUR ligne ' + line + ': ' + msg;
-  return false;
-};
-</script>
-
-<script>
-const debugEl = document.getElementById('debug-banner');
-function log(msg){ debugEl.textContent += '\n' + msg; }
-log('Script 2 démarré');
-
 function switchTab(tab){
-  log('switchTab: ' + tab);
   document.querySelectorAll('.nav-item').forEach(function(el){ el.classList.toggle('active', el.dataset.tab === tab); });
   document.querySelectorAll('.panel').forEach(function(el){ el.classList.remove('active'); });
   const panel = document.getElementById('panel-' + tab);
-  log('panel trouvé: ' + (panel ? 'OUI' : 'NON'));
   if(panel) panel.classList.add('active');
 }
 document.querySelectorAll('.nav-item').forEach(function(btn){
   btn.addEventListener('click', function(){ switchTab(btn.dataset.tab); });
 });
-log('listeners OK');
 
 const SUPABASE_URL = "https://plfydshfonnvntdvjikr.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_BUo7t_ZKSeGERdhvBX8yZw_90TOb_VP";
 let supabase = null;
 try {
   supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  log('Supabase OK');
-} catch(err) { log('❌ Supabase: ' + err.message); }
+} catch(err) { console.error('Supabase:', err.message); }
 
 let currentUser = null;
 
@@ -279,8 +256,6 @@ async function init(){
 
   const params = new URLSearchParams(window.location.search);
   if(params.get('email_connected') === '1'){ switchTab('emails'); }
-
-  log('init terminé');
 }
 
 async function checkEmailConnection(){
