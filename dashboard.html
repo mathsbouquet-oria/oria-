@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+<head><script>
+window.onerror = function(msg, url, line, col, error){
+  alert('ERREUR JS: ' + msg + ' (ligne ' + line + ')');
+};
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Oria — Tableau de bord</title>
