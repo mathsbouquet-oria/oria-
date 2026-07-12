@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="debug-banner" style="background:#111;color:#0F0;font-family:monospace;padding:10px;">DEBUG...</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.getElementById('debug-banner').textContent += '\n✓ Après Supabase, avant vérif';
+if(typeof window.supabase === 'undefined'){
+  document.getElementById('debug-banner').textContent += '\n❌ window.supabase est UNDEFINED';
+} else {
+  document.getElementById('debug-banner').textContent += '\n✓ window.supabase existe';
+}
+</script>
+</body>
+</html>
