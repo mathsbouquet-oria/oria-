@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oria — Politique de confidentialité</title>
+<style>
+  :root{
+    --bg:#F5F4FA;
+    --surface:#FFFFFF;
+    --accent:#5B4FE5;
+    --accent-light:#EFECFC;
+    --text:#1A1A2E;
+    --text-muted:#6B6B80;
+    --border:#E5E4F0;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  .wrap{ max-width:760px; margin:0 auto; padding:48px 24px 80px 24px; }
+  .brand{ display:flex; align-items:center; gap:8px; margin-bottom:36px; }
+  .brand-dot{ width:10px;height:10px;border-radius:50%; background:var(--accent); }
+  .brand-name{ font-size:19px; font-weight:700; letter-spacing:-0.02em; }
+  h1{ font-size:26px; margin-bottom:6px; }
+  .updated{ color:var(--text-muted); font-size:14px; margin-bottom:32px; }
+  h2{ font-size:18px; margin-top:36px; margin-bottom:12px; }
+  p, li{ font-size:15px; color:var(--text); margin-bottom:12px; }
+  ul{ padding-left:20px; margin-bottom:12px; }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:22px; margin:24px 0;
+  }
+  .card h3{ font-size:15px; margin-bottom:8px; }
+  .card p{ color:var(--text-muted); font-size:14px; margin-bottom:0; }
+  a{ color:var(--accent); }
+  .contact{
+    background:var(--accent-light); border-radius:var(--radius); padding:20px; margin-top:32px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <div class="brand-name">Oria</div>
+  </div>
+
+  <h1>Politique de confidentialité</h1>
+  <p class="updated">Dernière mise à jour : juillet 2026</p>
+
+  <p>Oria est un assistant personnel intelligent conçu pour les entrepreneures indépendantes. Cette page explique quelles données nous collectons, pourquoi, et comment vous pouvez les contrôler.</p>
+
+  <h2>1. Qui sommes-nous</h2>
+  <p>Oria est édité par une micro-entreprise individuelle basée en France. Pour toute question, vous pouvez nous contacter à l'adresse indiquée en bas de page.</p>
+
+  <h2>2. Données que nous collectons</h2>
+  <ul>
+    <li><strong>Compte :</strong> votre adresse email et les informations de connexion nécessaires à la création de votre compte (via Supabase).</li>
+    <li><strong>Utilisation :</strong> vos échanges avec l'assistant Oria (messages envoyés et reçus), afin de fournir le service demandé.</li>
+    <li><strong>Emails (si vous connectez Google Mail) :</strong> avec votre autorisation explicite, Oria accède au contenu de votre boîte Gmail pour trier, résumer et vous aider à rédiger des réponses.</li>
+    <li><strong>Facturation :</strong> les données nécessaires au traitement des paiements sont gérées directement par notre prestataire de paiement (Stripe) ; nous ne stockons pas vos coordonnées bancaires.</li>
+  </ul>
+
+  <div class="card">
+    <h3>Utilisation limitée des données Google (Gmail API)</h3>
+    <p>L'usage par Oria des informations reçues des API Google respecte la <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes" target="_blank">Google API Services User Data Policy</a>, y compris les exigences de Limited Use. Concrètement : les données de votre Gmail ne sont utilisées que pour vous fournir les fonctionnalités d'Oria que vous avez demandées (tri, résumé, aide à la rédaction), ne sont jamais utilisées à des fins publicitaires, ne sont jamais vendues à des tiers, et ne sont consultées par des humains que si nécessaire pour la sécurité, la conformité légale, ou avec votre consentement explicite.</p>
+  </div>
+
+  <h2>3. Comment nous utilisons vos données</h2>
+  <ul>
+    <li>Fournir et améliorer les fonctionnalités d'Oria (chat, tri d'emails, futures fonctions de devis et rendez-vous).</li>
+    <li>Assurer le bon fonctionnement de votre compte et de votre abonnement.</li>
+    <li>Vous contacter en cas de besoin concernant votre compte ou notre service.</li>
+  </ul>
+  <p>Nous ne vendons jamais vos données à des tiers et ne les utilisons jamais à des fins publicitaires.</p>
+
+  <h2>4. Partage des données</h2>
+  <p>Vos données sont hébergées et traitées par nos prestataires techniques : Supabase (authentification et base de données), Vercel (hébergement), Anthropic (traitement des messages envoyés à l'assistant IA), et Google (si vous connectez votre compte Gmail). Ces prestataires n'ont accès qu'aux données strictement nécessaires au fonctionnement du service.</p>
+
+  <h2>5. Conservation et suppression</h2>
+  <p>Vos données sont conservées tant que votre compte est actif. Vous pouvez demander la suppression complète de votre compte et de toutes les données associées à tout moment, en nous contactant à l'adresse ci-dessous. La suppression est effective sous 30 jours maximum.</p>
+
+  <h2>6. Révoquer l'accès à Google Mail</h2>
+  <p>Vous pouvez déconnecter votre compte Gmail d'Oria à tout moment depuis l'onglet "Compte" de votre tableau de bord, ou directement depuis les <a href="https://myaccount.google.com/permissions" target="_blank">paramètres de sécurité de votre compte Google</a>.</p>
+
+  <h2>7. Vos droits</h2>
+  <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, de suppression et de portabilité de vos données. Pour exercer ces droits, contactez-nous à l'adresse ci-dessous.</p>
+
+  <div class="contact">
+    <strong>Contact</strong>
+    <p style="margin-top:8px; margin-bottom:0;">Pour toute question relative à cette politique de confidentialité ou à vos données personnelles : <a href="mailto:mathsbouquet@gmail.com">mathsbouquet@gmail.com</a></p>
+  </div>
+
+</div>
+</body>
+</html>
